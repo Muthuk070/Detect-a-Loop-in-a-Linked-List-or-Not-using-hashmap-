@@ -1,0 +1,62 @@
+                                              Detect a loop in a linked list or not?
+
+
+public class nummm{
+	static Node head;
+	 static class Node{
+		 Node next;
+		 int data;
+		 Node(int d){
+			 data=d;
+			 next=null;
+		 }
+	 }
+	  
+	 static void insert(int k) {
+		 Node o=new Node(k);
+		 if(head==null) {
+			 head=o;
+		 }else {
+			 o.next=head;
+			 head=o;
+		 }
+	 }
+	 
+	 static HashMap<Integer,Integer>v=new HashMap();
+	 static boolean detectaloop() {
+		Node t=head;
+		while(t!=null) {
+			if(v.containsKey(t.data)) {
+				v.put(t.data,v.get(t.data)+1);
+				break;
+			}else {
+			v.put(t.data,1);
+		}
+			t=t.next;
+		}
+		for(Entry<Integer,Integer>n:v.entrySet()) {
+			if(n.getValue()>=2) {
+				return true;
+			}
+		}
+		return false;
+	 }
+	 
+	  public static void main(String[] args) {
+	    insert(5);	
+	    insert(4);
+	    insert(3);
+	    insert(2);
+	    insert(1);
+	    
+	    head.next.next.next=head;
+		  if(detectaloop()) {
+			  System.out.println("yes loop");
+		  }else {
+			  System.out.println("no loop");
+		  }
+	  }
+	  }
+
+OUTPUT:
+yes loop
